@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import { errors } from 'celebrate';
 
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { logger } from './middleware/logger.js';
@@ -22,12 +23,14 @@ app.use(notesRoutes);
 // 404 for unknown routes
 app.use(notFoundHandler);
 
+// Celebrate validation errors (400)
+app.use(errors());
+
 // Global error handler (must be last)
 app.use(errorHandler);
 
-// Connect to the database first, then start the server
 await connectMongoDB();
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

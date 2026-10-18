@@ -1,17 +1,5 @@
 import { Schema, model } from 'mongoose';
-
-const TAGS = [
-    'Work',
-    'Personal',
-    'Meeting',
-    'Shopping',
-    'Ideas',
-    'Travel',
-    'Finance',
-    'Health',
-    'Important',
-    'Todo',
-];
+import { TAGS } from '../contacts/tags.js';
 
 const noteSchema = new Schema(
     {
@@ -29,6 +17,7 @@ const noteSchema = new Schema(
             type: String,
             enum: TAGS,
             default: 'Todo',
+            index: true,
         },
     },
     {
